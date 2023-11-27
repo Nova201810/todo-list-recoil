@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container } from 'react-bootstrap';
+import { useEffect } from 'react';
+
+import { useGetTasks } from './store/hooks/useGetTasks';
+import Filters from './components/Filters';
+import AddTask from './components/AddTask';
 
 function App() {
+  const getTasks = useGetTasks();
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <body>
+        <Container className="mt-4">
+          <h1>Список заданий</h1>
+          <div className="mt-4">
+            <Filters />
+          </div>
+          <AddTask />
+        </Container>
+      </body>
     </div>
   );
 }
